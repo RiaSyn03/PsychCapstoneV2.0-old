@@ -19,8 +19,33 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.users.index') ->with('users', User::paginate(5));
+    
+}
+
+    public function create(Request $request)
+    {
+    $request->validate([
+        'name'=>'required',
+        'email'=>'required|email',
+        'password'=>'required', 
+    ]);
+    $user = User::create([
+        'name'=> $request->name,
+        'email'=> $request->email,
+        'password'=>bcrypt($request->password)
+
+    ]);
+    
+    if ($request->has('role')){
+        $user->assignRole($request->role['name']);
     }
 
+    if ($request->has('permissions')){
+        $user->givePermissionTo(collect($request->permissions)->pluck('id')->toArray());
+    }
+    return response(['message'=>'User Created', 'user'=>$user]);
+    
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -77,3 +102,4 @@ class UserController extends Controller
        return redirect()->route('admin.users.index')->with('warning', 'This user cannot be deleted');
     }
 }
+

@@ -2,9 +2,13 @@
 
 namespace App;
 
+use App\Notifications\UserRegistered;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\HasRole;
+
 
 class User extends Authenticatable
 {
@@ -28,6 +32,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+//     public static function boot()
+//     {
+//         parent::boot();
+
+//         static::created(function($model) {
+         
+            
+//             $admins =  User::all()->filter(function($user) {
+//                 return $user->hasRole('Admin');
+//             });
+
+//             Notification::send($admins, new UserRegistered($model));
+//     });
+// }
     /**
      * The attributes that should be cast to native types.
      *

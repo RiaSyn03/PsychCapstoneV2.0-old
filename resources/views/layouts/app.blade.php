@@ -7,24 +7,36 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>PsychCare2.0</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/dataTable.min.js') }}"></script>
+    
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/mystyle.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTable.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                  
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -32,12 +44,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                    @hasrole('admin')
-                    <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}">Manage Users</a>
-                    </li>
-                     @endhasrole
+                    
                      @impersonate()
                     <li class="nav-item">
                     <a href="{{ route('admin.impersonate.destroy') }}">Stop Impersonating</a>
@@ -58,6 +65,24 @@
                                 </li>
                             @endif
                         @else
+                        <li><a href="#"></a></li>
+                        <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >                                 
+                                    <i class="fa fa-bell"></i> 
+                                    @if(auth()->user()->unreadNotifications->count())
+                                    <span class="badge badge-light">{{auth()->user()->unreadnotifications->count()}}</span>
+                                    @endif
+                                </a>
+                                <ul class="dropdown-menu">
+                                <a href="{{ route('markRead') }}"><li style="color:green">Mark all as Read</li></a>
+                                    @foreach (auth()->user()->unreadNotifications as $notification )
+                                    <a href="#" style="text-decoration:none"><li style="background-color: lightgray">{{$notification->data['data']}} has registered</li></a>
+                                     @endforeach
+                                    @foreach (auth()->user()->readNotifications as $notification )
+                                    <a href="#" style="text-decoration:none"><li>{{$notification->data['data']}}done</li></a>
+                                    @endforeach
+                                </ul>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -80,7 +105,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
         @include('partials.alerts')
             @yield('content')
