@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
 
         $adminRole = Role::where('name', 'admin') -> first();
         $councilourRole = Role::where('name', 'councilour') -> first();
+        $studentRole = Role::where('name', 'student') -> first();
         $userRole = Role::where('name', 'user') -> first();
         
         $admin = User::create([
@@ -33,6 +34,12 @@ class UsersTableSeeder extends Seeder
             
         ]);
 
+        $student = User::create([
+            'name' => 'Student',
+            'email' => 'student@student.com',
+            'password' => bcrypt ('student')
+        ]);
+
         $user = User::create([
             'name' => 'User',
             'email' => 'user@user.com',
@@ -41,6 +48,7 @@ class UsersTableSeeder extends Seeder
 
         $admin -> roles() -> attach($adminRole);
         $councilour->roles()->attach($councilourRole);
+        $student->roles()->attach($studentRole);
         $user->roles()->attach($userRole);
 
         factory(App\User::class, 5)->create();
