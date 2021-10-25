@@ -22,26 +22,46 @@ class UsersTableSeeder extends Seeder
         $userRole = Role::where('name', 'user') -> first();
         
         $admin = User::create([
-            'name' => 'Admin',
+            'idnum' => '11111111',
+            'fname' => 'Admin',
+            'mname' => 'Ad',
+            'lname' => 'Admin',
+            'course' => 'admin',
+            'year' => '5',
             'email' => 'admin@admin.com',
             'password' => bcrypt ('admin')
         ]);
 
         $councilour = User::create([
-            'name' => 'Councilour',
+            'idnum' => '22222222',
+            'fname' => 'Councilour',
+            'mname' => 'Co',
+            'lname' => 'Councilour',
+            'course' => 'councilour',
+            'year' => '5',
             'email' => 'councilour@councilour.com',
             'password' => bcrypt ('councilour')
             
         ]);
 
         $student = User::create([
-            'name' => 'Student',
+            'idnum' => '33333333',
+            'fname' => 'Student',
+            'mname' => 'St',
+            'lname' => 'Student',
+            'course' => 'student',
+            'year' => '5',
             'email' => 'student@student.com',
             'password' => bcrypt ('student')
         ]);
 
         $user = User::create([
-            'name' => 'User',
+            'idnum' => '44444444',
+            'fname' => 'User',
+            'mname' => 'Us',
+            'lname' => 'User',
+            'course' => 'user',
+            'year' => '5',
             'email' => 'user@user.com',
             'password' => bcrypt ('user')
         ]);
