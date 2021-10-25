@@ -1,73 +1,63 @@
-@extends('layouts.app')
-@section('content')
-<div class=”wrapper”>
-        <div class="sidebar" data-image="{{ asset('img/sidebar-5.jpg') }}" data-color="red" >
-        <div class="sidebar-wrapper">
-                <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text">
-                        PSYCHCARE 2.0
-                    </a>
-                </div>
-                <ul class="nav">
-                <li>
-                        <a class="nav-link" href="{{ url('home') }}">
-                            <i class="nc-icon nc-chart-pie-35"></i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{{ url('stdprofile') }}">
-                            <i class="nc-icon nc-circle-09"></i>
-                            <p>User Profile</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{{ url('stdntexamresult') }}">
-                            <i class="nc-icon nc-notes"></i>
-                            <p>Test Result</p>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url('stdntappointment') }}">
-                            <i class="nc-icon nc-paper-2"></i>
-                            <p>Appointment</p>
-                        </a>
-                    </li>
-                </ul>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
+    <title>
+        Calendar
+    </title>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body class="light">
+
+    <div class="calendar" id="blur">
+        <div class="calendar-header">
+            <span class="month-picker" id="month-picker">February</span>
+            <div class="year-picker">
+                <span class="year-change" id="prev-year">
+                    <pre><</pre>
+                </span>
+                <span id="year">2021</span>
+                <span class="year-change" id="next-year">
+                    <pre>></pre>
+                </span>
             </div>
         </div>
-        <!-- end nav -->
-        <div class="content">
-        <div class="container-fluid">
-                                <div class="card">    
-                                    <div class="card-body"> 
+        <div class="calendar-body">
+            <div class="calendar-week-day">
+                <div style='color:red'>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div class="calendar-days"></div>
         </div>
+        <div class="calendar-footer">
+            <div class="toggle">
+                <span>Dark Mode</span>
+                <div class="dark-mode-switch">
+                    <div class="dark-mode-switch-ident"></div>
+                </div>
+            </div>
         </div>
-        </div>
-        </div>
-
-@endsection
-<script src="../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../assets/js/plugins/bootstrap-switch.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!--  Chartist Plugin  -->
-<script src="../assets/js/plugins/chartist.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="../assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
-        demo.showNotification();
-
-    });
-</script>
+        <div class="month-list"></div>
+    </div>
+    <div id="popup">
+        <h2><div><center>Description</center></div></h2>
+        
+        <p id="appointmentDate"></p>
+        <p>No Appointment in this current Date<p><br>
+        <h3><div><center>Want to make an Appointment ?</center></div></h3>
+        <p>Please select Time: <p>
+        <a href="/stdnttime"><button>Appoint</button></a>
+        <div onclick="toggle()"><center>Close</center></div>
+    </div>
+    <script src="js/calendar.js"></script>
+</body>
+</html>

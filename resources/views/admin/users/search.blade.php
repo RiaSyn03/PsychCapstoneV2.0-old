@@ -2,44 +2,54 @@
 
 @section('content')
 
-<div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Manage Users</div>
-                <div class="card-body"> 
-                <table class="table table-striped">
+<br />
+<div class="container box">
+<h3 align="center">Live search in laravel using AJAX</h3><br/>
+<div class="panel panel-default">
+<div class="panel-heading">Search Customer Data</div>
+<div class="panel-body">
+<div class="form-group">
+   <input type="text" name="search" id="search"class="form-control" placeholder="search" />
+   </div>
+   <div class="table-responsive">
+   <h3 align="center"> Total Data : <span id="total_records"></span></h3>
+   <table class="table table-striped table-bordered">
    <thead>
-   <div class="panel-body">
-   <form class="form-inline my-2 my-lg-0" type="get" action="{{url('/search')}}">
-   <input type="search" name="query" class="form-control m-sm-2" placeholder="search user"></div>
-   <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button></form>
-    <tr>  
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Role</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-  @foreach($users as $user)
-  <tr>
-  <th>{{ $user->name }}</th>
-  <th>{{ $user->email }}</th>
-  <th>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</th>
-  <th><a href="{{ route('admin.users.edit', $user->id) }}" class="float-left">
-  <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
-  <a href="{{ route('admin.impersonate', $user->id) }}" class="float-left">
-  <button type="button" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button></a>
-  <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="float-left">
-                {{ method_field('DELETE') }}
-                @csrf
-                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                </form>
+   <tr>
+   <th>Name</th>
+   <th>Email</th>
+   </tr>
+   </thead>
+   <tbody>
+   @foreach($users as $user)
+   <tr>
+   <td>{{ $user->name }}</td>
+   <td>{{ $user->email }}</td>
+   </tr>
+    @endforeach
+   </tbody>
+   </table>
+   </div>
+   </div>
+   </div>
+   </div>
+<script type="text/javascript">
+$('body').on('keyup', '#search', function(){
+    var searchQuest = $(this).val();
 
-  </th>
-  </tr>
-  @endforeach
-  </tbody>
-</table>
+    $.ajax({
+            method:'POST',
+            url:"{{route ('admin.users.index.action') }}",
+            dataType:'json',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                searchQuest: searchQuest,
+            },
+            success:function(res){
+                console.log(res)
+            }
+        });
+    });
 
+ </script>
 @endsection
