@@ -96,7 +96,13 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $question = Question::find($id);
+       if($question){
+        //    $question->roles()->detach();
+           $question->delete();
+           return redirect()->route('admin.users.councilour.questions.viewquestions')->with('success', 'Question has been deleted');
+       }
+       return redirect()->route('admin.users.councilour.questions.viewquestions')->with('warning', 'This user cannot be deleted');
     }
 }
 

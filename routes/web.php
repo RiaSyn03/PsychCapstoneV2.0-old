@@ -52,6 +52,10 @@ Route::get('/stdnttime', function () {
     return view('admin.users.student.stdnttime');
 });
 
+Route::get('/questionaire', function () {
+    return view('admin.users.student.questionaire');
+});
+
 Route::get('/listofstudent', function () {
     return view('admin.users.councilour.listofstudent');
 });
@@ -67,20 +71,21 @@ Route::get('/addquestion', function () {
 });
 
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/account/activate/{token}', 'AccountController@activate');
-
-// Route::resource('/questions','Councilour\QuestionController');
-Route::resource('/questions','Councilour\QuestionController', ['except' => ['show', 'edit', 'update', 'destroy']]);
-
+Route::resource('/questions','Councilour\QuestionController', ['except' => ['show', 'edit', 'update']]);
 Route::resource('/listofstudent', 'Councilour\ListofStudents', ['except' => ['show', 'create', 'store']]);
+// Route::get('/admin/users/student/questionaire', 'StudentquestionaireController@index')->name('questionaire');
 
 
-Route::resource('timeslots','TimeslotController');
+
 Route::get('/admin/users/student/stdnttime', 'TimeslotController@store',['except'=>['show','create','store']])->name('stdnttime');
-Route::get('/admin/users/student/viewtime', 'TimeslotController@index')->name('viewtime');
+Route::get('/admin/users/student/questionaire', 'StudentquestionaireController@index')->name('questionaire');
+
+
 
 Route::get('/index', function(){
     return view('admin.users');
