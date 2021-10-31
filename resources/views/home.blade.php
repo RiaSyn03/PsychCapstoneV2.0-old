@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('viewtime') }}">
+                        <a class="nav-link" href="{{ route('questionaire') }}">
                             <i class="nc-icon nc-circle-09"></i>
                             <p>User Profile</p>
                         </a>
@@ -54,11 +54,18 @@
                         </a>
                     </li>
                     <li>
+                        <a class="nav-link" href="{{ url('questionaire') }}">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Take Exams</p>
+                        </a>
+                    </li>
+                    <li>
                         <a class="nav-link" href="{{ url('stdntappointment') }}">
                             <i class="nc-icon nc-paper-2"></i>
                             <p>Appointment</p>
                         </a>
                     </li>
+                    
                 </ul>
             </div>
         </div>
