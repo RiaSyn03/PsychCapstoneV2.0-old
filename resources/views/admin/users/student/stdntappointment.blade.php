@@ -36,6 +36,7 @@
                 <div>Fri</div>
                 <div>Sat</div>
             </div>
+            
             <div class="calendar-days"></div>
         </div>
         <div class="calendar-footer">
@@ -50,12 +51,25 @@
     </div>
     <div id="popup">
         <h2><div><center>Description</center></div></h2>
-        
+        <form method="post" action="stdnttime">
+        @csrf
         <p id="appointmentDate"></p>
         <p>No Appointment in this current Date<p><br>
         <h3><div><center>Want to make an Appointment ?</center></div></h3>
         <p>Please select Time: <p>
-        <a href="/stdnttime"><button>Appoint</button></a>
+        <select name="time">
+        <!-- <optgroup>Morning</optgroup> -->
+      <option value="9:00-10:00 AM">9:00-10:00 AM</option>
+      <option value="10:00-11:00 AM">10:00-11:00 AM</option>
+      <option value="11:00-12:00 PM">11:00-12:00 PM</option>
+      <!-- <optgroup>Afternoon</optgroup> -->
+      <option value="1:00-2:00 PM">1:00-2:00 PM</option>
+      <option value="2:00-3:00 PM">2:00-3:00 PM</option>
+      <option value="3:00-4:00 PM">3:00-4:00 PM</option>
+    </select>
+  </label>
+  <button type="submit">Submit</button>
+</form>
         <div onclick="toggle()"><center>Close</center></div>
     </div>
     <script src="js/calendar.js"></script>

@@ -9,7 +9,7 @@
 <div class="panel-heading">Search Customer Data</div>
 <div class="panel-body">
 <div class="form-group">
-   <input type="text" name="search" id="search"class="form-control" placeholder="search" />
+   <input type="text" name="search" id="search"class="form-control" placeholder="Search" />
    </div>
    <div class="table-responsive">
    <h3 align="center"> Total Data : <span id="total_records"></span></h3>
@@ -21,35 +21,38 @@
    </tr>
    </thead>
    <tbody>
-   @foreach($users as $user)
-   <tr>
-   <td>{{ $user->name }}</td>
-   <td>{{ $user->email }}</td>
-   </tr>
-    @endforeach
    </tbody>
    </table>
    </div>
    </div>
    </div>
    </div>
-<script type="text/javascript">
-$('body').on('keyup', '#search', function(){
-    var searchQuest = $(this).val();
+<script>
+$(document).ready(function(){
 
-    $.ajax({
-            method:'POST',
-            url:"{{route ('admin.users.index.action') }}",
+    fetch_user_data();
+
+    function fetch_user_data(query = '')
+    {
+        $.ajax({
+            url:"{{ route('live_search.action') }}",
+            method: 'GET',
+            data:{query:query},
             dataType:'json',
-            data: {
-                '_token': '{{ csrf_token() }}',
-                searchQuest: searchQuest,
-            },
-            success:function(res){
-                console.log(res)
+            success:function(data)
+            {
+                $('tbody').html(data.table_data);
+                $('#total_records').text(data.total_data);
             }
-        });
-    });
+        })
+    }
 
- </script>
+    $(document).on('keyup', '#search', function(){
+        var query = $(this).val();
+        fetch_customer_data(query);
+    });
+});
+</script>
+
+
 @endsection

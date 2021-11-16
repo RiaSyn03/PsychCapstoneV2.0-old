@@ -14,8 +14,10 @@ class CreateTimeslotsTable extends Migration
     public function up()
     {
         Schema::create('timeslots', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id'); 
             $table->string('time');
+            $table->integer('user_id')->unsigned();
+            $table->string('date');
             $table->timestamps();
         });
     }
