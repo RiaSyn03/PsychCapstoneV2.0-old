@@ -1,4 +1,6 @@
-<html>
+@extends('layouts.app')
+@section('content')
+<!-- <html>
     <head>
     </head>
     <style>
@@ -79,14 +81,16 @@ body {
   .custom-select .selector-options li:hover {
     background: #03A9F4;
   }
-    </style>
+    </style> -->
+
     <body>
+    <p id="appointmentDate"></p>
     @if(session('success'))
 <div class="alert alert-success" role="alert">
   {{ session('success') }}
 </div>
 @endif
-        <form method="get" action="/admin/users/student/stdnttime">
+        <form method="post" action="stdnttime">
         @csrf
 <label class="custom-select">
     Select from number options
@@ -105,6 +109,7 @@ body {
 </form>
 </body>
 <script>
+  
     const selector = document.querySelector('.custom-select');
     
     selector.addEventListener('change', e => {
@@ -146,4 +151,6 @@ body {
       }
     });
     </script>
+    
 </html>
+@endsection

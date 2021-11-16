@@ -33,7 +33,7 @@
   <td>{{ $user->course }}</td>
   <td>{{ $user->year }}</td>
   <td>{{ $user->email }}</td>
-  <td>{{ $user->role_name }}</td>
+  <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
   <td><a href="{{ route('admin.users.edit', $user->id) }}" class="float-left">
   <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
   <a href="{{ route('admin.impersonate', $user->id) }}" class="float-left">
@@ -43,7 +43,6 @@
                 @csrf
                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                 </form>
-
   </td>
   </tr>
   @endforeach

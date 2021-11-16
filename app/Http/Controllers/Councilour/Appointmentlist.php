@@ -1,21 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Councilour;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Timeslot;
+use App\User;
+use DB;
 
-class TimeslotController extends Controller
+class Appointmentlist extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('admin.users.student.viewtime')->with('timeslots',Timeslot::all());
+
+        $timescheds = DB::table('users')
+        ->join('timeslots', 'timeslots.user_id', '=', 'users.id')
+        ->select('users.idnum', 'timeslots.time', 'timeslots.date')
+        ->get()->toArray();
+
+        return view('admin.users.councilour.viewtime')->with(['timescheds' => $timescheds]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,10 +43,11 @@ class TimeslotController extends Controller
         $this->validate($request,[
             'time' => 'required',
           ]);
-        $question = new Timeslot;
-        $question->id = NULL;
-        $question->time=$request->input('time');
-        $question->save();
+        $timeslot = new Timeslot;
+        $timeslot->user_id = $request->user()->id;
+        $timeslot->time=$request->input('time');
+        $timeslot->date=$request->input('date');
+        $timeslot->save();
 
         return redirect()->route('stdnttime')->with('success','Time Added');
     }
@@ -91,3 +97,4 @@ class TimeslotController extends Controller
         //
     }
 }
+

@@ -201,7 +201,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ url('stdntexamresult') }}">
+                        <a class="nav-link" href="{{ url('viewtime') }}">
                             <i class="nc-icon nc-notes"></i>
                             <p>Test Result</p>
                         </a>
